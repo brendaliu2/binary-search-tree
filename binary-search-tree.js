@@ -151,14 +151,42 @@ class BinarySearchTree {
   /** bfs(): Traverse the array using BFS.
    * Return an array of visited nodes. */
 
-  bfs() {
+  // use queue: first in first out (push, shift)
+  //base case: empty queue,no more left or right
+  //progress: left or right
+  bfs(queue = [this.root], visitedNodes = []) {
+    if (!this.root) return [];
 
+    if (!queue.length) return visitedNodes;
+
+    //shift out first in line
+    let currNode = queue.shift();
+
+    //did something with currNode
+    visitedNodes.push(currNode.val);
+
+    //add children
+    if (currNode.left) queue.push(currNode.left);
+    if (currNode.right) queue.push(currNode.right);
+
+
+    //call itself with progress
+    return this.bfs(queue, visitedNodes);
   }
 
   /** findSuccessorNode(): Find the node with the next largest value.
    * Return successor node or undefined if not found. */
 
   findSuccessorNode(node) {
+    let found = this.find(node.val);
+    debugger;
+    if (found && found.right) {
+      debugger;
+      return found.right.val;
+    } else {
+      debugger;
+      return undefined;
+    }
 
   }
 
